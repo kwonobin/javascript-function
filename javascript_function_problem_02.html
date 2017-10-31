@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+	function result(a,b) {
+	   var c = "";
+
+	   for(var i = 0; i < a; ++i) {
+	   	c += "*";
+	   }
+
+	   for(var i = 0; i < 10 - a; ++i) {
+	   	c += "_";
+	   }
+
+	   c += "+";
+
+	   for (var i = 0; i < b; ++i) {
+           	c += "*";
+       	   }
+
+           for (var i = 0; i < 10 - b; ++i) {
+       		c += "_";
+           }
+
+           c += " = ";
+
+           for (var i = 0; i < a + b; ++i) {
+           	c += "*";
+           }
+
+           for (var i = 0; i < 20 - (a + b); ++i) {
+           	c += "_";
+           }
+	   
+	   return c;
+	}
+
+        console.log("A : " + result(10,8));
+	console.log("B : " + result(1,2));
+	console.log("C : " + result(9,5));
+
+    </script>
+</head>
+<body>
+</body>
+</html>
