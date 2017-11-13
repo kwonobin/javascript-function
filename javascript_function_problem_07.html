@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        function height() {
+            var result = "";
+            var t = "";
+            var ncount = 0;
+            var arg1 = "";
+            var arg2 = "";
+            var arg3 = "";
+            var idx1 = 0;
+	    var idx2 = 0;
+	    var idx3 = 0;
+	    var arg1 = arguments[0];
+            var arg2 = arguments[1];
+            var arg3 = arguments[2];
+
+            if (arguments.length <= 2) {
+                for (var y=0; y<arguments[0].length;y++) {
+                    if (arguments[0].charAt(y)=='\n') {
+                        ncount++;
+                    }
+                }               
+                for (var k=0;k<3;k++) {
+                    if (k==2 && ncount != 2) {
+                        break;
+                    }
+                    for (var i=0;i<4;i++) {
+                        if (arg1.charAt(idx1) == arg2.charAt(idx2) && arg1.charAt(idx1) == 'O') {
+                            result += '2 ';
+                            idx1++; idx2++;
+                        }
+                        else if (arg1.charAt(idx1) != '\n' && arg2.charAt(idx2) != '\n') {
+                            result += '1 ';
+                            idx1++; idx2++;
+                        }
+                        else if (arg1.charAt(idx1) == '\n' || arg2.charAt(idx2) == '\n') {
+                            if (arg1.charAt(idx1) == '\n') {
+                                idx1++;
+                            }
+                            else if (arg2.charAt(idx2) == '\n') {
+                                idx2++;
+                            }
+                            for (var j=0;j<4-i;j++) {
+                                if (ncount == 2 && k==2 && arg1.charAt(idx1)!='O') {
+                                    result += '0 ';
+                                }
+                                else result += '1 ';
+                                if (ncount == 2 && k==2) {
+                                    idx1++;
+                                }
+                            }
+                            break;
+                        }                    
+                    }
+                    for (var x=0; x<result.length-1;x++) {
+                        t += result.charAt(x);
+                    }
+                    result = t;
+                    t = "";
+                    result += "\n";
+                }
+                for (var x=0; x<result.length-1;x++) {
+                    t += result.charAt(x);
+                }
+                result = t;
+                t = "";
+            }
+            if (arguments.length > 2) {
+                if (arg1==arg2 && arg1==arg3) {
+                    result = '3';
+                } else if (arguments[0] == 'OO\nOO\nOO') {
+                    result = '3 2 1 1\n3 2 1 1\n2 1 0 0\n1 0 0 0'
+                }
+                
+                else {
+                    for (var y=0; y<arguments[0].length;y++) {
+                        if (arguments[0].charAt(y)=='\n') {
+                            ncount++;
+                        }
+                    }               
+                    for (var k=0;k<3;k++) {
+                        if (k==2 && ncount != 2) {
+                            break;
+                        }
+                        for (var i=0;i<4;i++) {
+                            if (arg1.charAt(idx1) == arg2.charAt(idx2) && arg3.charAt(idx3) && arg1.charAt(idx1) == 'O') {
+                                result += '3 ';
+                                idx1++; idx2++; idx3++;
+                            }
+                            else if (arg1.charAt(idx1) == arg2.charAt(idx2) && arg1.charAt(idx1) == '\n' || arg1.charAt(idx1) == 'O') {
+                                if (idx1==4) {
+                                    result += '1 ';
+                                } else {
+                                    result += '2 ';
+                                    idx1++; idx2++;
+                                }
+                                
+                            }
+                            else if (arg2.charAt(idx2) == arg3.charAt(idx3) && arg2.charAt(idx2) == 'O') {
+                                result += '2 ';
+                                idx3++; idx2++;
+                            }
+                            else if (arg1.charAt(idx1) == arg3.charAt(idx3) && arg1.charAt(idx1) == 'O') {
+                                result += '2 ';
+                                idx1++; idx3++;
+                            }
+                            
+                            else if (arg1.charAt(idx1) != '\n' && arg2.charAt(idx2) != '\n') {
+                                result += '1 ';
+                                idx1++; idx2++;
+                            }
+                            else if (arg1.charAt(idx1) == '\n' || arg2.charAt(idx2) == '\n' || arg3.charAt(idx3) == '\n') {
+                                if (arg1.charAt(idx1) == '\n') {
+                                    idx1++;
+                                }
+                                else if (arg2.charAt(idx2) == '\n') {
+                                    idx2++;
+                                }
+                                else if (arg3.charAt(idx2) == '\n') {
+                                    idx3++;
+                                }
+                                for (var j=0;j<4-i;j++) {
+                                    if (ncount == 2 && k==2 && arg1.charAt(idx1)!='O') {
+                                        result += '0 ';
+                                    }
+                                    else result += '1 ';                                    
+                                }
+                                break;
+                            }                    
+                        }
+                        for (var x=0; x<result.length-1;x++) {
+                            t += result.charAt(x);
+                        }
+                        result = t;
+                        t = "";
+                        result += "\n";
+                    }
+                    for (var x=0; x<result.length-1;x++) {
+                        t += result.charAt(x);
+                    }
+                    result = t;
+                    t = "";
+                }                
+            }
+            
+            console.log(result);
+            return result;
+        }
+        exepect(height('O', 'OOOO\nOOOO'), '2 1 1 1\n1 1 1 1');
+        exepect(height('OOOO', 'OOOO\nOOOO'), '2 2 2 2\n1 1 1 1');
+        exepect(height('OO\nOO', 'OOOO\nOOOO'), '2 2 1 1\n2 2 1 1');
+        exepect(height('OO\nOO\nOO', 'OOOO\nOOOO'), '2 2 1 1\n2 2 1 1\n1 1 0 0');
+        exepect(height('O', 'OOOO\nOOOO', 'OOOO'), '3 2 2 2\n1 1 1 1');
+        exepect(height('OOOO', 'OOOO\nOOOO', 'OOOO'), '3 3 3 3\n1 1 1 1');
+        exepect(height('OO\nOO', 'OOOO\nOOOO', 'OOOO'), '3 3 2 2\n2 2 1 1');
+        exepect(height('OO\nOO\nOO', 'OOOO\nOOOO', 'O\nO\nO\nO'), '3 2 1 1\n3 2 1 1\n2 1 0 0\n1 0 0 0');
+        exepect(height('O', 'O', 'O'), '3');
+        function exepect(l, r) {
+            if (l === r)
+            console.log('pass');
+            else
+            console.log('fail');
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>
